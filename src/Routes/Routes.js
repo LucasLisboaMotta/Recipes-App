@@ -1,27 +1,39 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from '../Pages/Login';
+import Foods from '../Pages/Foods';
+import FoodsDetail from '../Pages/FoodsDetail';
+import FoodsInProgress from '../Pages/FoodsInProgress';
+import Drinks from '../Pages/Drinks';
 
 function Routes() {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
-        {/* <Route exact path="/foods" component={ About } />
-        <Route exact path="/foods/{id-da-receita}" component={ About } />
-        <Route exact path="/drinks/{id-da-receita}" component={ About } />
-        <Route exact path="/foods/{id-da-receita}/in-progress" component={ About } />
-        <Route exact path="/drinks/{id-da-receita}/in-progress" component={ About } />
+
+        <Route exact path="/foods" component={ Foods } />
+        <Route exact path="/foods/:id" component={ FoodsDetail } />
+        <Route exact path="/foods/:id/in-progress" component={ FoodsInProgress } />
+
+        <Route exact path="/drinks" component={ Drinks } />
+        <Route exact path="/drinks/:id" component={ About } />
+        <Route exact path="/drinks/:id/in-progress" component={ About } />
+
         <Route exact path="/explore" component={ About } />
         <Route exact path="/explore/foods" component={ About } />
         <Route exact path="/explore/drinks" component={ About } />
         <Route exact path="/explore/foods/ingredients" component={ About } />
         <Route exact path="/explore/drinks/ingredients" component={ About } />
         <Route exact path="/explore/foods/nationalities" component={ About } />
+
         <Route exact path="/profile" component={ About } />
+
         <Route exact path="/done-recipes" component={ About } />
+
         <Route exact path="/favorite-recipes" component={ About } />
-        <Route exact path="*" component={ About } /> */}
+
+        <Route exact path="*" component={ About } />
       </Switch>
     </BrowserRouter>
   );
@@ -46,3 +58,20 @@ export default Routes;
 // Tela de receitas feitas: /done-recipes;
 // Tela de receitas favoritas: /favorite-recipes.
 // Tela 404: *
+
+// - Não tem header na tela de login
+// - O header tem os ícones corretos na tela de principal de receitas de comidas
+// - O header tem os ícones corretos na tela de principal de receitas de bebidas
+// - Não tem header na tela de detalhes de uma receita de comida
+// - Não tem header na tela de detalhes de uma receita de bebida
+// - Não tem header na tela de receita em progresso de comida
+// - Não tem header na tela de receita em progresso de bebida
+// - O header tem os ícones corretos na tela de explorar
+// - O header tem os ícones corretos na tela de explorar comidas
+// - O header tem os ícones corretos na tela de explorar bebidas
+// - O header tem os ícones corretos na tela de explorar comidas por ingrediente
+// - O header tem os ícones corretos na tela de explorar bebidas por ingrediente
+// - O header tem os ícones corretos na tela de explorar comidas por nacionalidade
+// - O header tem os ícones corretos na tela de perfil
+// - O header tem os ícones corretos na tela de receitas feitas
+// - O header tem os ícones corretos na tela de receitas favoritas
