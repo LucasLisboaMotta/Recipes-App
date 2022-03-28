@@ -52,12 +52,10 @@ www.thecocktaildb.com/api/json/v1/1/list.php?g=list
 www.thecocktaildb.com/api/json/v1/1/list.php?i=list
 www.thecocktaildb.com/api/json/v1/1/list.php?a=list
 
-
  Images
 Drink thumbnails
 Add /preview to the end of the cocktail image URL
 /images/media/drink/vrwquq1478252802.jpg/preview (100x100 pixels)
-
 
 Ingredient Thumbnails
 www.thecocktaildb.com/images/ingredients/gin-Small.png
