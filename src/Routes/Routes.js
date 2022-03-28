@@ -1,14 +1,15 @@
 import React from 'react';
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
 import Login from '../Pages/Login';
+import Foods from '../Pages/Foods';
 
 function Routes() {
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
-        {/* <Route exact path="/foods" component={ About } />
-        <Route exact path="/foods/{id-da-receita}" component={ About } />
+        <Route exact path="/foods" component={ Foods } />
+        {/* <Route exact path="/foods/{id-da-receita}" component={ About } />
         <Route exact path="/drinks/{id-da-receita}" component={ About } />
         <Route exact path="/foods/{id-da-receita}/in-progress" component={ About } />
         <Route exact path="/drinks/{id-da-receita}/in-progress" component={ About } />
