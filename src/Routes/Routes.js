@@ -35,13 +35,8 @@ function Routes() {
         <Route exact path="/explore" component={ Explore } />
         <Route exact path="/explore/foods" component={ ExploreFoods } />
         <Route exact path="/explore/drinks" component={ ExploreDrinks } />
+        <Route path="/explore/foods/ingredients" component={ ExploreFoodsIngredients } />
         <Route
-          exact
-          path="/explore/foods/ingredients"
-          component={ ExploreFoodsIngredients }
-        />
-        <Route
-          exact
           path="/explore/drinks/ingredients"
           component={ ExploreDrinksIngredients }
         />
@@ -64,38 +59,3 @@ function Routes() {
 }
 
 export default Routes;
-
-// Tela de login: /;
-// Tela principal de receitas de comidas: /foods;
-// Tela principal de receitas de bebidas: /drinks;
-// Tela de detalhes de uma receita de comida: /foods/{id-da-receita};
-// Tela de detalhes de uma receita de bebida: /drinks/{id-da-receita};
-// Tela de receita em progresso de comida: /foods/{id-da-receita}/in-progress;
-// Tela de receita em progresso de bebida: /drinks/{id-da-receita}/in-progress;
-// Tela de explorar: /explore;
-// Tela de explorar comidas: /explore/foods;
-// Tela de explorar bebidas: /explore/drinks;
-// Tela de explorar comidas por ingrediente: /explore/foods/ingredients;
-// Tela de explorar bebidas por ingrediente: /explore/drinks/ingredients;
-// Tela de explorar comidas por nacionalidade: /explore/foods/nationalities;
-// Tela de perfil: /profile;
-// Tela de receitas feitas: /done-recipes;
-// Tela de receitas favoritas: /favorite-recipes.
-// Tela 404: *
-
-// - Não tem header na tela de login
-// - O header tem os ícones corretos na tela de principal de receitas de comidas
-// - O header tem os ícones corretos na tela de principal de receitas de bebidas
-// - Não tem header na tela de detalhes de uma receita de comida
-// - Não tem header na tela de detalhes de uma receita de bebida
-// - Não tem header na tela de receita em progresso de comida
-// - Não tem header na tela de receita em progresso de bebida
-// - O header tem os ícones corretos na tela de explorar
-// - O header tem os ícones corretos na tela de explorar comidas
-// - O header tem os ícones corretos na tela de explorar bebidas
-// - O header tem os ícones corretos na tela de explorar comidas por ingrediente
-// - O header tem os ícones corretos na tela de explorar bebidas por ingrediente
-// - O header tem os ícones corretos na tela de explorar comidas por nacionalidade
-// - O header tem os ícones corretos na tela de perfil
-// - O header tem os ícones corretos na tela de receitas feitas
-// - O header tem os ícones corretos na tela de receitas favoritas

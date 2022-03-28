@@ -1,11 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 
 export default function Header() {
   return (
+
     <header>
-      <img src={ ProfileIcon } alt="profile icon" data-testid="profile-top-btn" />
+      <Link to="/profile">
+        <img src={ ProfileIcon } alt="profile icon" data-testid="profile-top-btn" />
+      </Link>
       <h1 data-testid="page-title">Pagina atual(colocar dinamico depois)</h1>
       <img src={ SearchIcon } alt="search icon" data-testid="search-top-btn" />
     </header>
