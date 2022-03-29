@@ -1,6 +1,21 @@
 import React from 'react';
 
 function SearchBar() {
+  const getURL = (page, radioInput, textInput) => {
+    const urlObject = {
+      Foods: {
+        ingredient: (ingredient) => `https://www.themealdb.com/api/json/v1/1/filter.php?i=${ingredient}`,
+        name: (name) => `https://www.themealdb.com/api/json/v1/1/search.php?s=${name}`,
+        'first-letter': (firstLetter) => `https://www.themealdb.com/api/json/v1/1/search.php?f=${firstLetter}`,
+      },
+      Drinks: {
+        ingredient: (ingredient) => `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${ingredient}`,
+        name: (name) => `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${name}`,
+        'first-letter': (firstLetter) => `https://www.thecocktaildb.com/api/json/v1/1/search.php?f=${firstLetter}`,
+      },
+    };
+    return urlObject[page][radioInput](textInput);
+  };
   return (
     <form>
       <label htmlFor="search-bar">
