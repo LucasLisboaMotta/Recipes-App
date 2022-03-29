@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
+import SearchBar from './SearchBar';
 
 export default function Header({ page, handleSearch }) {
   const [hasSearchClick, setSearchClick] = useState(false);
@@ -22,7 +23,7 @@ export default function Header({ page, handleSearch }) {
         <img src={ ProfileIcon } alt="profile icon" data-testid="profile-top-btn" />
       </Link>
       <h1 data-testid="page-title">{page}</h1>
-      {hasSearchClick && <input data-testid="search-input" />}
+      {hasSearchClick && <SearchBar />}
       {handleSearch && SearchButton }
     </header>
   );
