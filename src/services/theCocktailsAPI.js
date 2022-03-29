@@ -1,3 +1,14 @@
+const cocktailDetailsURL = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+
+export const cocktailDetailsRequest = async (id) => {
+  const response = await fetch(cocktailDetailsURL + id);
+  const { drinks } = response.json();
+
+  return drinks[0];
+};
+
+export const tmp = 0;
+
 /* API Methods using the developer test key '1' as the API key
 
 Search cocktail by name

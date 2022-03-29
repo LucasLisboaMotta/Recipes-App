@@ -1,3 +1,13 @@
+const mealDetailsURL = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+
+export const mealDetailsRequest = async (id) => {
+  const response = await fetch(mealDetailsURL + id);
+  const { meals } = await response.json();
+  return meals[0];
+};
+
+export const tmp = 0;
+
 /* API Methods using the developer test key '1' as the API key
 
 Search meal by name
