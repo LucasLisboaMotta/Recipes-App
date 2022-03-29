@@ -23,7 +23,7 @@ export default function Header({ page, handleSearch }) {
         <img src={ ProfileIcon } alt="profile icon" data-testid="profile-top-btn" />
       </Link>
       <h1 data-testid="page-title">{page}</h1>
-      {hasSearchClick && <SearchBar />}
+      {hasSearchClick && <SearchBar page={ page } />}
       {handleSearch && SearchButton }
     </header>
   );
