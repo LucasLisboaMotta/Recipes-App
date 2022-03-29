@@ -69,7 +69,6 @@ export default function Login({ history }) {
         </button>
       </form>
     </section>
-
   );
 }
 
