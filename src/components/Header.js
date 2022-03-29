@@ -1,9 +1,10 @@
+import PropTypes from 'prop-types';
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProfileIcon from '../images/profileIcon.svg';
 import SearchIcon from '../images/searchIcon.svg';
 
-export default function Header() {
+export default function Header({ page, handleSearch }) {
   const [hasSearchClick, setSearchClick] = useState(false);
 
   return (
@@ -11,17 +12,23 @@ export default function Header() {
       <Link to="/profile">
         <img src={ ProfileIcon } alt="profile icon" data-testid="profile-top-btn" />
       </Link>
-      <h1 data-testid="page-title">Pagina atual(colocar dinamico depois)</h1>
-      {hasSearchClick && <input />}
+      <h1 data-testid="page-title">{page}</h1>
+      {hasSearchClick && <input data-testid="search-input" />}
       <button
         type="button"
         onClick={ () => setSearchClick(!hasSearchClick) }
       >
-        <img src={ SearchIcon } alt="search icon" data-testid="search-top-btn" />
+        {handleSearch
+        && <img src={ SearchIcon } alt="search icon" data-testid="search-top-btn" />}
       </button>
     </header>
   );
 }
+
+Header.propTypes = {
+  page: PropTypes.string.isRequired,
+  handleSearch: PropTypes.bool.isRequired,
+};
 
 // - Não tem header na tela de login
 // - O header tem os ícones corretos na tela de principal de receitas de comidas

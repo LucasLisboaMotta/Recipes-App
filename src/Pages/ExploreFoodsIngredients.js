@@ -4,7 +4,7 @@ import Header from '../components/Header';
 export default function ExploreFoodsIngredients() {
   return (
     <div>
-      <Header />
+      <Header page="Explore Ingredients" handleSearch={ false } />
       ExploreFoodsIngredients
     </div>
   );

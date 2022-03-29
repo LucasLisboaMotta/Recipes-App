@@ -4,7 +4,7 @@ import Header from '../components/Header';
 export default function DoneRecipes() {
   return (
     <div>
-      <Header />
+      <Header page="Done Recipes" handleSearch={ false } />
       DoneRecipes
     </div>
   );
