@@ -7,6 +7,12 @@ import Cards from '../components/Cards';
 
 export default function Foods() {
   const { setState } = useContext(context);
+  const onClickButton = async (category) => {
+    const URL = `https://www.themealdb.com/api/json/v1/1/list.php?c=${category}`;
+    const getFoodsByCategory = await fetch(URL);
+    const resolveFoodsByCategory = await getFoodsByCategory.json();
+    setState({ foods: resolveFoodsByCategory.drinks });
+  };
   useEffect(() => {
     const getApi = async () => {
       const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
