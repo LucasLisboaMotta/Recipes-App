@@ -7,14 +7,15 @@ import Cards from '../components/Cards';
 
 function Foods() {
   const [categories, setCategories] = useState();
+  const { setState, exploreIngredient, setExploreIngredient } = useContext(context);
   const getCategories = useCallback(async () => {
-    const result = await fetch('https://www.themealdb.com/api/json/v1/1/list.php?c=list');
+    const URL = 'https://www.themealdb.com/api/json/v1/1/list.php?c=list';
+    const result = await fetch(URL);
     const data = await result.json();
     setCategories(data.meals);
   }, [setCategories]);
 
   const [categoryButton, setCategoryButton] = useState('');
-  const { setState } = useContext(context);
 
   const onClickButton = async (category) => {
     let URL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
@@ -31,13 +32,18 @@ function Foods() {
   };
   useEffect(() => {
     const getApi = async () => {
-      const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+      let URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+      if (exploreIngredient !== '') {
+        URL = `https://www.themealdb.com/api/json/v1/1/filter.php?i=${exploreIngredient}`;
+        setExploreIngredient('');
+      }
       const getInicialRecipes = await fetch(URL);
       const resolveInicialRecipes = await getInicialRecipes.json();
+      console.log(resolveInicialRecipes.meals);
       setState({ foods: resolveInicialRecipes.meals });
     };
     getApi();
-  }, [setState]);
+  }, []);
 
   useEffect(() => { getCategories(); }, [getCategories]);
   if (!categories) {

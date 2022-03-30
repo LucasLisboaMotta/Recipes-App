@@ -4,9 +4,13 @@ import Context from './Context';
 
 function Provider({ children }) {
   const [state, setState] = useState({ foods: [] });
+  const [exploreIngredient, setExploreIngredient] = useState('');
 
   return (
-    <Context.Provider value={ { state, setState } }>
+    <Context.Provider
+      value={ {
+        state, setState, exploreIngredient, setExploreIngredient } }
+    >
       {children}
     </Context.Provider>
   );
