@@ -8,9 +8,10 @@ import Cards from '../components/Cards';
 function Drinks() {
   const [categories, setCategories] = useState();
   const { setState } = useContext(context);
+  const [categoryButton, setCategoryButton] = useState('');
   const onClickButton = async (category) => {
     let URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
-    if (category === categoryButton) {
+    if (category === categoryButton || category === 'All') {
       URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
       setCategoryButton('');
     } else {
@@ -49,6 +50,13 @@ function Drinks() {
   return (
     <div className="drinks">
       <Header page="Drinks" handleSearch />
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => onClickButton('All') }
+      >
+        All
+      </button>
       {filteredCategories.map(({ strCategory }) => (
         <button
           type="button"

@@ -19,7 +19,7 @@ function Foods() {
   const onClickButton = async (category) => {
     let URL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
 
-    if (category === categoryButton) {
+    if (category === categoryButton || category === 'All') {
       URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
       setCategoryButton('');
     } else {
@@ -53,7 +53,13 @@ function Foods() {
   return (
     <div className="foods">
       <Header page="Foods" handleSearch />
-      Foods
+      <button
+        type="button"
+        data-testid="All-category-filter"
+        onClick={ () => onClickButton('All') }
+      >
+        All
+      </button>
       {filteredCategories.map(({ strCategory }) => (
         <button
           type="button"
