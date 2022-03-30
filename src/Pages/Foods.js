@@ -9,7 +9,7 @@ export default function Foods() {
   const { setState } = useContext(context);
   useEffect(() => {
     const getApi = async () => {
-      const URL = 'https://www.themealdb.com/api/json/v1/1/filter.php?c=Beef';
+      const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
       const getInicialRecipes = await fetch(URL);
       const resolveInicialRecipes = await getInicialRecipes.json();
       setState({ foods: resolveInicialRecipes.meals });
