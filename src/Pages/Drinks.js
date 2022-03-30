@@ -8,12 +8,18 @@ import Cards from '../components/Cards';
 function Drinks() {
   const [categories, setCategories] = useState();
   const { setState } = useContext(context);
-  // const onClickButton = async (category) => {
-  //   const URL = `https://www.thecocktaildb.com/api/json/v1/1/list.php?c=${category}`;
-  //   const getDrinksByCategory = await fetch(URL);
-  //   const resolveDrinksByCategory = await getDrinksByCategory.json();
-  //   setState({ foods: resolveDrinksByCategory.drinks });
-  // };
+  const onClickButton = async (category) => {
+    let URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
+    if (category === categoryButton) {
+      URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+      setCategoryButton('');
+    } else {
+      setCategoryButton(category);
+    }
+    const getDrinksByCategory = await fetch(URL);
+    const resolveDrinksByCategory = await getDrinksByCategory.json();
+    setState({ foods: resolveDrinksByCategory.drinks });
+  };
   useEffect(() => {
     const getApi = async () => {
       const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
@@ -48,6 +54,7 @@ function Drinks() {
           type="button"
           key={ strCategory }
           data-testid={ `${strCategory}-category-filter` }
+          onClick={ () => onClickButton(strCategory) }
         >
           { strCategory }
         </button>

@@ -13,14 +13,22 @@ function Foods() {
     setCategories(data.meals);
   }, [setCategories]);
 
-  // const [categoryButton, setCategoryButton] = useState('');
+  const [categoryButton, setCategoryButton] = useState('');
   const { setState } = useContext(context);
-  // const onClickButton = async (category) => {
-  //   const URL = `https://www.themealdb.com/api/json/v1/1/list.php?c=${category}`;
-  //   const getFoodsByCategory = await fetch(URL);
-  //   const resolveFoodsByCategory = await getFoodsByCategory.json();
-  //   setState({ foods: resolveFoodsByCategory.drinks });
-  // };
+
+  const onClickButton = async (category) => {
+    let URL = `https://www.themealdb.com/api/json/v1/1/filter.php?c=${category}`;
+
+    if (category === categoryButton) {
+      URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
+      setCategoryButton('');
+    } else {
+      setCategoryButton(category);
+    }
+    const getFoodsByCategory = await fetch(URL);
+    const resolveFoodsByCategory = await getFoodsByCategory.json();
+    setState({ foods: resolveFoodsByCategory.meals });
+  };
   useEffect(() => {
     const getApi = async () => {
       const URL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
@@ -51,6 +59,7 @@ function Foods() {
           type="button"
           key={ strCategory }
           data-testid={ `${strCategory}-category-filter` }
+          onClick={ () => onClickButton(strCategory) }
         >
           { strCategory }
         </button>
