@@ -1,13 +1,19 @@
-const cocktailDetailsURL = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+const cocktailDetailsURL = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
+const cocktailDetailsByNameURL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
-export const cocktailDetailsRequest = async (id) => {
+export const cocktailDetailsByID = async (id) => {
   const response = await fetch(cocktailDetailsURL + id);
-  const { drinks } = response.json();
+  const { drinks } = await response.json();
 
   return drinks[0];
 };
 
-export const tmp = 0;
+export const cocktailDetailsByName = async (name) => {
+  const response = await fetch(cocktailDetailsByNameURL + name);
+  const { drinks } = await response.json();
+
+  return drinks[0];
+};
 
 /* API Methods using the developer test key '1' as the API key
 

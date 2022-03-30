@@ -1,4 +1,5 @@
 const mealDetailsURL = 'https://www.themealdb.com/api/json/v1/1/lookup.php?i=';
+const mealDetailsByNameURL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
 
 export const mealDetailsRequest = async (id) => {
   const response = await fetch(mealDetailsURL + id);
@@ -6,7 +7,12 @@ export const mealDetailsRequest = async (id) => {
   return meals[0];
 };
 
-export const tmp = 0;
+export const mealDetailsByName = async (name) => {
+  const response = await fetch(mealDetailsByNameURL + name);
+  const { meals } = await response.json();
+
+  return meals[0];
+};
 
 /* API Methods using the developer test key '1' as the API key
 
