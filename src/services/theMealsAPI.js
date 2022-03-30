@@ -11,7 +11,7 @@ export const mealDetailsByName = async () => {
   const response = await fetch(mealDetailsByNameURL);
   const { meals } = await response.json();
 
-  return meals[0];
+  return meals;
 };
 
 /* API Methods using the developer test key '1' as the API key

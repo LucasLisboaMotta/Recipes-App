@@ -7,6 +7,7 @@ import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 // import 'react-responsive-carousel/lib/styles/carousel.min.css';
 import '../styles/recipeDetails.css';
 import CardRecipe from '../components/CardRecipe';
+import { cocktailDetailsByName } from '../services/theCocktailsAPI';
 
 // REF CARROSSEL https://www.npmjs.com/package/react-responsive-carousel
 
@@ -15,11 +16,15 @@ export default function FoodsDetail({ history, match: { params: { id } } }) {
   const [idLinkYouTube, setIdLinkYoutube] = useState('');
   const [ingredients, setIngredients] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
-  // const [drinkId, setDrinkId] = useState('');
-
-  const recommended = ['0', '1', '2', '3', '4', '5'];
+  const [recomendations, setRecomendations] = useState([]);
 
   useEffect(() => {
+    const requestGenericRecomendations = async () => {
+      const MAX_RECOMMENDATIONS = 6;
+      const recomendationsRequest = await cocktailDetailsByName();
+      setRecomendations(recomendationsRequest.slice(0, MAX_RECOMMENDATIONS));
+    };
+
     const requestMeal = async () => {
       const meal = await mealDetailsRequest(id);
       setMealDetails(meal);
@@ -40,6 +45,7 @@ export default function FoodsDetail({ history, match: { params: { id } } }) {
       }
     };
     requestMeal();
+    requestGenericRecomendations();
   }, []);
 
   return (
@@ -110,10 +116,11 @@ export default function FoodsDetail({ history, match: { params: { id } } }) {
         <section className="recommended-recipe">
           <h4>Recommended</h4>
           <div className="carrousel">
-            { recommended.map((index) => (
+            { recomendations.map((recipe, index) => (
               <CardRecipe
                 key={ index }
                 type="drink"
+                recipe={ recipe }
                 index={ index }
               />
             ))}

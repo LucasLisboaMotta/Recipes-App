@@ -5,6 +5,7 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import '../styles/recipeDetails.css';
 import CardRecipe from '../components/CardRecipe';
+import { mealDetailsByName } from '../services/theMealsAPI';
 
 // REF CARROSSEL https://www.npmjs.com/package/react-responsive-carousel
 
@@ -13,12 +14,15 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
   // const [idLinkYouTube, setIdLinkYoutube] = useState('');
   const [ingredients, setIngredients] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
-
-  // const [drinkId, setDrinkId] = useState('');
-
-  const recommended = ['0', '1', '2', '3', '4', '5'];
+  const [recomendations, setRecomendations] = useState([]);
 
   useEffect(() => {
+    const requestGenericRecomendations = async () => {
+      const MAX_RECOMMENDATIONS = 6;
+      const recomendationsRequest = await mealDetailsByName();
+      setRecomendations(recomendationsRequest.slice(0, MAX_RECOMMENDATIONS));
+    };
+
     const requestDrink = async () => {
       const drink = await cocktailDetailsByID(id);
       setDrinkDetails(drink);
@@ -38,8 +42,8 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
         setIngredients(arr);
       }
     };
-    console.log('tela de drink');
     requestDrink();
+    requestGenericRecomendations();
   }, []);
 
   return (
@@ -54,11 +58,8 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
           <h2 data-testid="recipe-title">
             { drinkDetails.strDrink }
           </h2>
-          <h4 data-testid="recipe-alcoholic">
-            { drinkDetails.strAlcoholic }
-          </h4>
           <h3 data-testid="recipe-category">
-            { drinkDetails.strCategory }
+            { `${drinkDetails.strCategory} - ${drinkDetails.strAlcoholic}` }
           </h3>
           <button type="button" data-testid="share-btn">
             <img
@@ -113,10 +114,11 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
         <section className="recommended-recipe">
           <h4>Recommended</h4>
           <div className="carrousel">
-            { recommended.map((index) => (
+            { recomendations.map((recipe, index) => (
               <CardRecipe
                 key={ index }
                 type="food"
+                recipe={ recipe }
                 index={ index }
               />
             ))}

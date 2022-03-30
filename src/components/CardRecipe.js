@@ -1,50 +1,50 @@
-import React, { useEffect, useState } from 'react';
-// import { Link } from 'react-router-dom';
+import React from 'react';
+import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { cocktailDetailsByName } from '../services/theCocktailsAPI';
-import { mealDetailsByName } from '../services/theMealsAPI';
 
-function CardRecipe({ index, type }) {
-  const [imageURL, setImageURL] = useState('');
-  // const [linkURL, setLinkURL] = useState('');
-
-  useEffect(() => {
-    const requestDrinkDetails = async () => {
-      const details = await cocktailDetailsByName();
-      setImageURL(details.strDrinkThumb);
-      // setLinkURL(details.idDrink);
-    };
-
-    const requestFoodDetails = async () => {
-      const details = await mealDetailsByName();
-      setImageURL(details.strMealThumb);
-      // setLinkURL(details.idMeal);
-    };
-
-    if (type === 'drink') {
-      requestDrinkDetails();
-    } else {
-      requestFoodDetails();
-    }
-  }, []);
-
+function CardRecipe({ recipe, type, index }) {
   return (
-    // <Link to={ type === 'drink' ? `/drinks/${linkURL}` : `/foods/${linkURL}` }>
-    <div data-testid={ `${index}-recomendation-card` }>
-      <img
-        className="image-drink-recommended"
-        src={ imageURL }
-        alt="Recomendação"
-      />
-      {/* <p>{ name }</p> */}
-    </div>
-    // </Link>
+    <Link
+      to={ type === 'drink' ? `/drinks/${recipe.idDrink}` : `/foods/${recipe.idMeal}` }
+    >
+      <div data-testid={ `${index}-recomendation-card` }>
+        <img
+          className="image-drink-recommended"
+          src={
+            type === 'drink' ? recipe.strDrinkThumb : recipe.strMealThumb
+          }
+          alt="Recomendação"
+        />
+        <p data-testid={ `${index}-recomendation-title` }>
+          { type === 'drink' ? recipe.strDrink : recipe.strMeal }
+        </p>
+      </div>
+    </Link>
   );
 }
 
+CardRecipe.defaultProps = {
+  recipe: PropTypes.shape({
+    idDrink: '',
+    idMeal: '',
+    strDrinkThumb: '',
+    strMealThumb: '',
+    strDrink: '',
+    strMeal: '',
+  }),
+};
+
 CardRecipe.propTypes = {
-  index: PropTypes.string.isRequired,
+  recipe: PropTypes.shape({
+    idDrink: PropTypes.string,
+    idMeal: PropTypes.string,
+    strDrinkThumb: PropTypes.string,
+    strMealThumb: PropTypes.string,
+    strDrink: PropTypes.string,
+    strMeal: PropTypes.string,
+  }),
   type: PropTypes.string.isRequired,
+  index: PropTypes.number.isRequired,
 };
 
 export default CardRecipe;
