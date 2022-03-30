@@ -1,4 +1,4 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import context from '../context/Context';
@@ -6,6 +6,7 @@ import '../styles/foods.css';
 import Cards from '../components/Cards';
 
 export default function Foods() {
+  const [categoryButton, setCategoryButton] = useState('');
   const { setState } = useContext(context);
   const onClickButton = async (category) => {
     const URL = `https://www.themealdb.com/api/json/v1/1/list.php?c=${category}`;
