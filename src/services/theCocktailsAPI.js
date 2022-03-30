@@ -8,8 +8,8 @@ export const cocktailDetailsByID = async (id) => {
   return drinks[0];
 };
 
-export const cocktailDetailsByName = async (name) => {
-  const response = await fetch(cocktailDetailsByNameURL + name);
+export const cocktailDetailsByName = async () => {
+  const response = await fetch(cocktailDetailsByNameURL);
   const { drinks } = await response.json();
 
   return drinks[0];

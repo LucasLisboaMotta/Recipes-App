@@ -5,7 +5,7 @@ import { mealDetailsRequest } from '../services/theMealsAPI';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 // import 'react-responsive-carousel/lib/styles/carousel.min.css';
-import '../styles/foodsDetails.css';
+import '../styles/recipeDetails.css';
 import CardRecipe from '../components/CardRecipe';
 
 // REF CARROSSEL https://www.npmjs.com/package/react-responsive-carousel
@@ -17,15 +17,7 @@ export default function FoodsDetail({ history, match: { params: { id } } }) {
   const [isLoaded, setIsLoaded] = useState(false);
   // const [drinkId, setDrinkId] = useState('');
 
-  const drinksList = [
-    'Whiskey Sour',
-    'Mojito',
-    'Old Fashioned',
-    'Long Island Tea',
-    'Negroni',
-    'Dry Martini',
-    'Daiquiri',
-  ];
+  const recommended = ['0', '1', '2', '3', '4', '5'];
 
   useEffect(() => {
     const requestMeal = async () => {
@@ -118,10 +110,9 @@ export default function FoodsDetail({ history, match: { params: { id } } }) {
         <section className="recommended-recipe">
           <h4>Recommended</h4>
           <div className="carrousel">
-            { drinksList.map((drink, index) => (
+            { recommended.map((index) => (
               <CardRecipe
                 key={ index }
-                name={ drink }
                 type="drink"
                 index={ index }
               />
@@ -131,6 +122,7 @@ export default function FoodsDetail({ history, match: { params: { id } } }) {
         <section className="start-recipe-btn">
           <button
             type="button"
+            className="button-start-recipe"
             data-testid="start-recipe-btn"
             onClick={ () => { history.push(`/foods/${id}/in-progress`); } }
           >

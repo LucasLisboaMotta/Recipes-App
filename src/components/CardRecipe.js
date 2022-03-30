@@ -1,25 +1,24 @@
 import React, { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { cocktailDetailsByName } from '../services/theCocktailsAPI';
 import { mealDetailsByName } from '../services/theMealsAPI';
 
-function CardRecipe({ name, index, type }) {
+function CardRecipe({ index, type }) {
   const [imageURL, setImageURL] = useState('');
-  const [linkURL, setLinkURL] = useState('');
+  // const [linkURL, setLinkURL] = useState('');
 
   useEffect(() => {
     const requestDrinkDetails = async () => {
-      const details = await cocktailDetailsByName(name);
-      console.log(details);
+      const details = await cocktailDetailsByName();
       setImageURL(details.strDrinkThumb);
-      setLinkURL(details.idDrink);
+      // setLinkURL(details.idDrink);
     };
 
     const requestFoodDetails = async () => {
-      const details = await mealDetailsByName(name);
+      const details = await mealDetailsByName();
       setImageURL(details.strMealThumb);
-      setLinkURL(details.idMeal);
+      // setLinkURL(details.idMeal);
     };
 
     if (type === 'drink') {
@@ -30,22 +29,21 @@ function CardRecipe({ name, index, type }) {
   }, []);
 
   return (
-    <Link to={ type === 'drink' ? `/drinks/${linkURL}` : `/foods/${linkURL}` }>
-      <div data-testid={ `${index}-recomendation-card` }>
-        <img
-          className="image-drink-recommended"
-          src={ imageURL }
-          alt={ name }
-        />
-        <p>{ name }</p>
-      </div>
-    </Link>
+    // <Link to={ type === 'drink' ? `/drinks/${linkURL}` : `/foods/${linkURL}` }>
+    <div data-testid={ `${index}-recomendation-card` }>
+      <img
+        className="image-drink-recommended"
+        src={ imageURL }
+        alt="Recomendação"
+      />
+      {/* <p>{ name }</p> */}
+    </div>
+    // </Link>
   );
 }
 
 CardRecipe.propTypes = {
-  name: PropTypes.string.isRequired,
-  index: PropTypes.number.isRequired,
+  index: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
 };
 

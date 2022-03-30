@@ -3,28 +3,20 @@ import PropTypes from 'prop-types';
 import { cocktailDetailsByID } from '../services/theCocktailsAPI';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-import '../styles/foodsDetails.css';
+import '../styles/recipeDetails.css';
 import CardRecipe from '../components/CardRecipe';
 
 // REF CARROSSEL https://www.npmjs.com/package/react-responsive-carousel
 
 export default function DrinksDetail({ history, match: { params: { id } } }) {
   const [drinkDetails, setDrinkDetails] = useState('');
-  const [idLinkYouTube, setIdLinkYoutube] = useState('');
+  // const [idLinkYouTube, setIdLinkYoutube] = useState('');
   const [ingredients, setIngredients] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   // const [drinkId, setDrinkId] = useState('');
 
-  const foodsList = [
-    'Lamb tomato and sweet spices',
-    'Bakewell tart',
-    'Nanaimo Bars',
-    'Kapsalon',
-    'Duck Confit',
-    'Osso Buco alla Milanese',
-    'Salmon Prawn Risotto',
-  ];
+  const recommended = ['0', '1', '2', '3', '4', '5'];
 
   useEffect(() => {
     const requestDrink = async () => {
@@ -33,7 +25,7 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
       setIsLoaded(true);
 
       if (drink.idDrink) {
-        setIdLinkYoutube(drink.strVideo.split('https://www.youtube.com/watch?v=')[1]);
+        // setIdLinkYoutube(drink.strVideo.split('https://www.youtube.com/watch?v=')[1]);
         const quantity = Object.keys(drink).length;
         const arr = [];
         for (let i = 1; i <= quantity; i += 1) {
@@ -104,7 +96,7 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
             { drinkDetails.strInstructions }
           </p>
         </section>
-        <section className="video-recipe">
+        {/* <section className="video-recipe">
           <h4>Video</h4>
           <iframe
             data-testid="video"
@@ -117,14 +109,13 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
               autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
           />
-        </section>
+        </section> */}
         <section className="recommended-recipe">
           <h4>Recommended</h4>
           <div className="carrousel">
-            { foodsList.map((food, index) => (
+            { recommended.map((index) => (
               <CardRecipe
                 key={ index }
-                name={ food }
                 type="food"
                 index={ index }
               />
@@ -134,6 +125,7 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
         <section className="start-recipe-btn">
           <button
             type="button"
+            className="button-start-recipe"
             data-testid="start-recipe-btn"
             onClick={ () => { history.push(`/foods/${id}/in-progress`); } }
           >

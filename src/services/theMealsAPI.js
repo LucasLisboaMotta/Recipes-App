@@ -7,8 +7,8 @@ export const mealDetailsRequest = async (id) => {
   return meals[0];
 };
 
-export const mealDetailsByName = async (name) => {
-  const response = await fetch(mealDetailsByNameURL + name);
+export const mealDetailsByName = async () => {
+  const response = await fetch(mealDetailsByNameURL);
   const { meals } = await response.json();
 
   return meals[0];
