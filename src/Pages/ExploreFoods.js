@@ -6,7 +6,7 @@ import Footer from '../components/Footer';
 export default function ExploreFoods() {
   const history = useHistory();
   const onClickSpriseButton = async () => {
-    const URL = 'https//www.themealdb.com/api/json/v1/1/random.php';
+    const URL = 'https://www.themealdb.com/api/json/v1/1/random.php';
     const getSurpriseFood = await fetch(URL);
     const resolveSurpriseFood = await getSurpriseFood.json();
     history.push(`/foods/${resolveSurpriseFood.meals[0].idMeal}`);
