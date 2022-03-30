@@ -1,4 +1,4 @@
-import React, { useCallback, useState, useEffect } from 'react';
+import React, { useCallback, useState, useEffect, useContext } from 'react';
 import Header from '../components/Header';
 import Footer from '../components/Footer';
 import context from '../context/Context';
@@ -43,7 +43,6 @@ function Drinks() {
   return (
     <div className="drinks">
       <Header page="Drinks" handleSearch />
-      Drinks
       {filteredCategories.map(({ strCategory }) => (
         <button
           type="button"
