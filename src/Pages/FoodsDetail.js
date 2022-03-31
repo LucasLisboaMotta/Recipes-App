@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-// import { Carousel } from 'react-responsive-carousel';
 import { mealDetailsRequest } from '../services/theMealsAPI';
 import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
-// import 'react-responsive-carousel/lib/styles/carousel.min.css';
+import blackHeartIcon from '../images/blackHeartIcon.svg';
 import '../styles/recipeDetails.css';
 import CardRecipe from '../components/CardRecipe';
 import { cocktailDetailsByName } from '../services/theCocktailsAPI';
+import {
+  getDoneRecipes,
+  isInProgressRecipe,
+  isFavoriteRecipe,
+  saveFavoritesRecipes } from '../services/localStorage';
 
 // REF CARROSSEL https://www.npmjs.com/package/react-responsive-carousel
 
@@ -48,6 +52,43 @@ export default function FoodsDetail({ history, match: { params: { id } } }) {
     requestGenericRecomendations();
   }, []);
 
+  const verifyRecipeIsDone = () => (
+    !getDoneRecipes().some((doneRecipe) => doneRecipe.id === id)
+  );
+
+  const renderButton = () => (
+    verifyRecipeIsDone() && (
+      <button
+        type="button"
+        className="button-start-recipe"
+        data-testid="start-recipe-btn"
+        onClick={ () => { history.push(`/foods/${id}/in-progress`); } }
+      >
+        { isInProgressRecipe(id, 'meals') ? 'Continue Recipe' : 'Start Recipe' }
+      </button>
+    )
+  );
+
+  const renderIsFavoriteIcon = () => (
+    isFavoriteRecipe(id, 'food') ? blackHeartIcon : whiteHeartIcon
+  );
+
+  const [favoriteIcon, setFavoriteIcon] = useState(renderIsFavoriteIcon());
+
+  const handleClickFavorite = () => {
+    const obj = {
+      id: mealDetails.idMeal,
+      type: 'food',
+      nationality: mealDetails.strArea,
+      category: mealDetails.strCategory,
+      alcoholicOrNot: '',
+      name: mealDetails.strMeal,
+      image: mealDetails.strMealThumb,
+    };
+    saveFavoritesRecipes(obj);
+    setFavoriteIcon(renderIsFavoriteIcon());
+  };
+
   return (
     isLoaded && (
       <article>
@@ -63,20 +104,27 @@ export default function FoodsDetail({ history, match: { params: { id } } }) {
           <h3 data-testid="recipe-category">
             { mealDetails.strCategory }
           </h3>
-          <button type="button" data-testid="share-btn">
+          <button
+            type="button"
+            data-testid="share-btn"
+            onClick={ () => {
+              navigator.clipboard.writeText(window.location.href);
+              document.querySelector('.alert-link-copied').innerText = 'Link copied!';
+            } }
+          >
             <img
               src={ shareIcon }
               alt="Ícone favotitar"
-              // data-testid="drinks-bottom-btn"
             />
           </button>
-          <button type="button" data-testid="favorite-btn">
+          <button type="button" onClick={ handleClickFavorite }>
             <img
-              src={ whiteHeartIcon }
+              src={ favoriteIcon }
               alt="Ícone compartilhar"
-            // data-testid="drinks-bottom-btn"
+              data-testid="favorite-btn"
             />
           </button>
+          <p className="alert-link-copied" />
         </section>
         <section className="ingredients-recipe">
           <h4>Ingredients</h4>
@@ -127,14 +175,7 @@ export default function FoodsDetail({ history, match: { params: { id } } }) {
           </div>
         </section>
         <section className="start-recipe-btn">
-          <button
-            type="button"
-            className="button-start-recipe"
-            data-testid="start-recipe-btn"
-            onClick={ () => { history.push(`/foods/${id}/in-progress`); } }
-          >
-            Start Recipe
-          </button>
+          { renderButton() }
         </section>
       </article>
     )
