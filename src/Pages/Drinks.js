@@ -7,7 +7,7 @@ import Cards from '../components/Cards';
 
 function Drinks() {
   const [categories, setCategories] = useState();
-  const { setState } = useContext(context);
+  const { setState, exploreIngredient, setExploreIngredient } = useContext(context);
   const [categoryButton, setCategoryButton] = useState('');
   const onClickButton = async (category) => {
     let URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?c=${category}`;
@@ -23,13 +23,17 @@ function Drinks() {
   };
   useEffect(() => {
     const getApi = async () => {
-      const URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+      let URL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+      if (exploreIngredient !== '') {
+        URL = `https://www.thecocktaildb.com/api/json/v1/1/filter.php?i=${exploreIngredient}`;
+        setExploreIngredient('');
+      }
       const getInicialRecipes = await fetch(URL);
       const resolveInicialRecipes = await getInicialRecipes.json();
       setState({ foods: resolveInicialRecipes.drinks });
     };
     getApi();
-  }, [setState]);
+  }, []);
   const getCategories = useCallback(async () => {
     const result = await fetch('https://www.thecocktaildb.com/api/json/v1/1/list.php?c=list');
     const data = await result.json();

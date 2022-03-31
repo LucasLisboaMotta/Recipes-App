@@ -25,7 +25,7 @@ export default function ExploreFoodsIngredients() {
   return (
     <div>
       <Header page="Explore Ingredients" handleSearch={ false } />
-      {ingredientsArray.filter((_, index) => index <= MAXIMUNS_CARDS)
+      {ingredientsArray.filter((_, index) => index < MAXIMUNS_CARDS)
         .map(({ strIngredient }, index) => (
           <button
             type="button"
@@ -34,7 +34,15 @@ export default function ExploreFoodsIngredients() {
 
           >
             <div data-testid={ `${index}-ingredient-card` }>
-              {strIngredient}
+              <img
+                data-testid={ `${index}-card-img` }
+                alt={ index }
+                src={ `https://www.themealdb.com/images/ingredients/${strIngredient}-Small.png` }
+              />
+              <p data-testid={ `${index}-card-name` }>
+
+                {strIngredient}
+              </p>
             </div>
           </button>
         ))}
