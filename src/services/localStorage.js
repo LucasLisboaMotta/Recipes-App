@@ -10,3 +10,7 @@ export const addEmailUser = (email) => {
   const user = { email };
   localStorage.setItem('user', JSON.stringify(user));
 };
+
+export const getEmailUser = () => JSON.parse(localStorage.getItem('user'));
+
+export const clearStorage = () => localStorage.clear();
