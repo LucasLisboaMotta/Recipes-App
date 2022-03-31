@@ -1,0 +1,15 @@
+.carrousel {
+  display: flex;
+  flex-flow: row nowrap;
+  overflow-x: scroll;
+  width: 360px;
+}
+
+.image-drink-recommended {
+  width: 190px;
+}
+
+.button-start-recipe {
+  bottom: 0;
+  position: fixed;
+}

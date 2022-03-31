@@ -1,3 +1,20 @@
+const cocktailDetailsURL = 'https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=';
+const cocktailDetailsByNameURL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+
+export const cocktailDetailsByID = async (id) => {
+  const response = await fetch(cocktailDetailsURL + id);
+  const { drinks } = await response.json();
+
+  return drinks[0];
+};
+
+export const cocktailDetailsByName = async () => {
+  const response = await fetch(cocktailDetailsByNameURL);
+  const { drinks } = await response.json();
+
+  return drinks;
+};
+
 /* API Methods using the developer test key '1' as the API key
 
 Search cocktail by name
