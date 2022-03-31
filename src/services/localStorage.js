@@ -60,3 +60,7 @@ export const isFavoriteRecipe = (idRecipe, typeRecipe) => {
 };
 
 // [{ id, type, nationality, category, alcoholicOrNot, name, image }]
+
+export const getEmailUser = () => JSON.parse(localStorage.getItem('user'));
+
+export const clearStorage = () => localStorage.clear();
