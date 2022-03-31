@@ -39,7 +39,6 @@ function Foods() {
       }
       const getInicialRecipes = await fetch(URL);
       const resolveInicialRecipes = await getInicialRecipes.json();
-      console.log(resolveInicialRecipes.meals);
       setState({ foods: resolveInicialRecipes.meals });
     };
     getApi();
