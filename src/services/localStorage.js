@@ -23,13 +23,15 @@ export const getDoneRecipes = () => {
   return [];
 };
 
-export const isInProgressRecipe = (id, type) => {
+export const isInProgressRecipe = (id) => {
   const recipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  if (recipes) return Object.keys(recipes[type]).some((idRecipe) => idRecipe === id);
+  console.log(recipes);
+  if (recipes) return recipes.some((Recipe) => Recipe.id === id);
   return false;
 };
 
 export const saveInProgressRecipe = (recipe) => {
+  console.log('oi', recipe);
   const prevRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   if (!prevRecipes) {
     return localStorage.setItem('inProgressRecipes', JSON.stringify([recipe]));

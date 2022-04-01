@@ -39,8 +39,8 @@ export default function FoodsInProgress({ history, match: { params: { id } } }) 
             arr.push(`${ingredient} - ${measure}`);
           }
         }
-        let boolCheckedList = arr.map(() => true);
-        if (isInProgressRecipe(id, 'meals')) {
+        let boolCheckedList = arr.map(() => false);
+        if (isInProgressRecipe(id, 'food')) {
           boolCheckedList = (inProgressIngredients(`${id}food`));
         } else {
           const obj = {
@@ -55,6 +55,7 @@ export default function FoodsInProgress({ history, match: { params: { id } } }) 
           saveInProgressRecipe(obj);
           setInProgressIngredients(`${id}food`, boolCheckedList);
         }
+        console.log('useEffect');
         setIngredients(arr);
         setCheckdArr(boolCheckedList);
       }
@@ -84,6 +85,13 @@ export default function FoodsInProgress({ history, match: { params: { id } } }) 
   );
 
   const [favoriteIcon, setFavoriteIcon] = useState(renderIsFavoriteIcon());
+
+  const handleInput = (index, bool) => {
+    const newArry = [...checkdArr];
+    newArry[index] = bool;
+    setInProgressIngredients(`${id}food`, newArry);
+    setCheckdArr(newArry);
+  };
 
   const handleClickFavorite = () => {
     const obj = {
@@ -142,15 +150,21 @@ export default function FoodsInProgress({ history, match: { params: { id } } }) 
             {
               ingredients.map((ingredient, index) => (
                 <label htmlFor={ ingredient + index } key={ index }>
-                  <input id={ ingredient + index } type="checkbox" />
+                  <input
+                    id={ ingredient + index }
+                    type="checkbox"
+                    checked={ checkdArr[index] }
+                    onChange={ () => handleInput(index, checkdArr[index]) }
+                  />
                   <li
+                    className={ checkdArr[index] ? 'ingredient-checked'
+                      : 'ingredient-unchecked' }
                     data-testid={ `${index}-ingredient-step` }
                   >
                     {ingredient}
                   </li>
 
                 </label>
-                // 'ingredient-checked'
               ))
             }
           </ul>
