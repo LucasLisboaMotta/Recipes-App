@@ -21,3 +21,14 @@
 .ingredient-unchecked {
   text-decoration: none solid black;
 }
+
+.ingredients-list {
+  display: flex;
+  flex-wrap: line;
+}
+
+.ingredients-ul {
+  display: flex;
+  flex-flow: column;
+
+}

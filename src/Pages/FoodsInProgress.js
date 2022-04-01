@@ -163,24 +163,29 @@ export default function FoodsInProgress({ history, match: { params: { id } } }) 
         </section>
         <section className="ingredients-recipe">
           <h4>Ingredients</h4>
-          <ul>
+          <ul className="ingredients-ul">
             {
               ingredients.map((ingredient, index) => (
-                <label htmlFor={ ingredient + index } key={ index }>
-                  <li
-                    className={ checkdArr[index] ? 'ingredient-checked'
-                      : 'ingredient-unchecked' }
-                    data-testid={ `${index}-ingredient-step` }
-                  >
-                    <input
-                      id={ ingredient + index }
-                      type="checkbox"
-                      checked={ checkdArr[index] }
-                      onChange={ () => handleInput(index, !checkdArr[index]) }
-                    />
-                    {ingredient}
-                  </li>
-
+                <label
+                  // className="ingredients-list"
+                  htmlFor={ ingredient + index }
+                  key={ index }
+                >
+                  <div className="ingredients-list">
+                    <li
+                      className={ checkdArr[index] ? 'ingredient-checked'
+                        : 'ingredient-unchecked' }
+                      data-testid={ `${index}-ingredient-step` }
+                    >
+                      <input
+                        id={ ingredient + index }
+                        type="checkbox"
+                        checked={ checkdArr[index] }
+                        onChange={ () => handleInput(index, !checkdArr[index]) }
+                      />
+                      {ingredient}
+                    </li>
+                  </div>
                 </label>
               ))
             }

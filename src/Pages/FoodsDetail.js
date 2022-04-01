@@ -133,6 +133,7 @@ export default function FoodsDetail({ history, match: { params: { id } } }) {
               ingredients.map((ingredient, index) => (
                 <li
                   key={ index }
+                  className="ingredients-class"
                   data-testid={ `${index}-ingredient-name-and-measure` }
                 >
                   {ingredient}
