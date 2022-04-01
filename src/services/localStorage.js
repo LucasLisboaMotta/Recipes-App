@@ -31,7 +31,6 @@ export const isInProgressRecipe = (id) => {
 };
 
 export const saveInProgressRecipe = (recipe) => {
-  console.log('oi', recipe);
   const prevRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   if (!prevRecipes) {
     return localStorage.setItem('inProgressRecipes', JSON.stringify([recipe]));
