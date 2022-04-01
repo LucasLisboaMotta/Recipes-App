@@ -12,7 +12,9 @@ import {
   saveFavoritesRecipes,
   saveInProgressRecipe,
   inProgressIngredients,
-  setInProgressIngredients } from '../services/localStorage';
+  setInProgressIngredients,
+  saveDoneRecipes,
+} from '../services/localStorage';
 
 // REF CARROSSEL https://www.npmjs.com/package/react-responsive-carousel
 
@@ -67,15 +69,30 @@ export default function FoodsInProgress({ history, match: { params: { id } } }) 
     !getDoneRecipes().some((doneRecipe) => doneRecipe.id === id)
   );
 
+  const onClickButton = () => {
+    const obj = {
+      id: mealDetails.idMeal,
+      type: 'food',
+      nationality: mealDetails.strArea,
+      category: mealDetails.strCategory,
+      alcoholicOrNot: '',
+      name: mealDetails.strMeal,
+      image: mealDetails.strMealThumb,
+    };
+    saveDoneRecipes(obj);
+    history.push('/done-recipes');
+  };
+
   const renderFinishButton = () => (
     verifyRecipeIsDone() && (
       <button
         type="button"
         className="button-finish-recipe"
         data-testid="finish-recipe-btn"
-        onClick={ () => { history.push(`/foods/${id}/in-progress`); } }
+        onClick={ onClickButton }
+        disabled={ !checkdArr.every((element) => element) }
       >
-        { isInProgressRecipe(id, 'meals') ? 'Continue Recipe' : 'Finish Recipe' }
+        Finish Recipe
       </button>
     )
   );
