@@ -40,5 +40,6 @@ describe('Testando tela de foods', () => {
       render(<App />);
     });
     // enterFoodsPage();
+    // npm run test-coverage
   });
 });
