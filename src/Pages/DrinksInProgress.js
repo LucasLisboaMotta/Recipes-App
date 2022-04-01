@@ -9,7 +9,12 @@ import {
   getDoneRecipes,
   isInProgressRecipe,
   isFavoriteRecipe,
-  saveFavoritesRecipes } from '../services/localStorage';
+  saveFavoritesRecipes,
+  saveInProgressRecipe,
+  inProgressIngredients,
+  setInProgressIngredients,
+  saveDoneRecipes,
+} from '../services/localStorage';
 
 // REF CARROSSEL https://www.npmjs.com/package/react-responsive-carousel
 
@@ -17,6 +22,7 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
   const [drinkDetails, setDrinkDetails] = useState('');
   const [ingredients, setIngredients] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
+  const [checkdArr, setCheckdArr] = useState([]);
 
   useEffect(() => {
     const requestDrink = async () => {
@@ -25,7 +31,6 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
       setIsLoaded(true);
 
       if (drink.idDrink) {
-        // setIdLinkYoutube(drink.strVideo.split('https://www.youtube.com/watch?v=')[1]);
         const quantity = Object.keys(drink).length;
         const arr = [];
         for (let i = 1; i <= quantity; i += 1) {
@@ -35,7 +40,24 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
             arr.push(`${ingredient} - ${measure}`);
           }
         }
+        let boolCheckedList = arr.map(() => false);
+        if (isInProgressRecipe(id, 'drink')) {
+          boolCheckedList = (inProgressIngredients(`${id}drink`));
+        } else {
+          const obj = {
+            id: drink.id,
+            type: 'drink',
+            nationality: drink.nationality,
+            category: drink.categorystrCategory,
+            alcoholicOrNot: drink.alcoholicOrNot,
+            name: drink.name,
+            image: drink.strDrinkThumb,
+          };
+          saveInProgressRecipe(obj);
+          setInProgressIngredients(`${id}drink`, boolCheckedList);
+        }
         setIngredients(arr);
+        setCheckdArr(boolCheckedList);
       }
     };
     requestDrink();
@@ -45,15 +67,30 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
     !getDoneRecipes().some((doneRecipe) => doneRecipe.id === id)
   );
 
-  const renderButton = () => (
+  const onClickButton = () => {
+    const obj = {
+      id: drinkDetails.idDrink,
+      type: 'drink',
+      nationality: '',
+      category: drinkDetails.strCategory,
+      alcoholicOrNot: drinkDetails.strAlcoholic,
+      name: drinkDetails.strDrink,
+      image: drinkDetails.strDrinkThumb,
+    };
+    saveDoneRecipes(obj);
+    history.push('/done-recipes');
+  };
+
+  const renderFinishButton = () => (
     verifyRecipeIsDone() && (
       <button
         type="button"
         className="button-finish-recipe"
         data-testid="finish-recipe-btn"
-        onClick={ () => { history.push(`/drinks/${id}/in-progress`); } }
+        onClick={ onClickButton }
+        disabled={ !checkdArr.every((element) => element) }
       >
-        { isInProgressRecipe(id, 'cocktails') ? 'Continue Recipe' : 'Finish Recipe' }
+        Finish Recipe
       </button>
     )
   );
@@ -63,6 +100,13 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
   );
 
   const [favoriteIcon, setFavoriteIcon] = useState(renderIsFavoriteIcon());
+
+  const handleInput = (index, bool) => {
+    const newArry = [...checkdArr];
+    newArry[index] = bool;
+    setInProgressIngredients(`${id}food`, newArry);
+    setCheckdArr(newArry);
+  };
 
   const handleClickFavorite = () => {
     const obj = {
@@ -121,12 +165,21 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
           <ul>
             {
               ingredients.map((ingredient, index) => (
-                <li
-                  key={ index }
-                  data-testid={ `${index}-ingredient-step` }
-                >
-                  {ingredient}
-                </li>
+                <label htmlFor={ ingredient + index } key={ index }>
+                  <li
+                    className={ checkdArr[index] ? 'ingredient-checked'
+                      : 'ingredient-unchecked' }
+                    data-testid={ `${index}-ingredient-step` }
+                  >
+                    <input
+                      id={ ingredient + index }
+                      type="checkbox"
+                      checked={ checkdArr[index] }
+                      onChange={ () => handleInput(index, !checkdArr[index]) }
+                    />
+                    {ingredient}
+                  </li>
+                </label>
               ))
             }
           </ul>
@@ -138,7 +191,7 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
           </p>
         </section>
         <section className="finish-recipe-btn">
-          { renderButton() }
+          { renderFinishButton() }
         </section>
       </article>
     )
