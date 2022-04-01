@@ -5,8 +5,6 @@ import shareIcon from '../images/shareIcon.svg';
 import whiteHeartIcon from '../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../images/blackHeartIcon.svg';
 import '../styles/recipeDetails.css';
-import CardRecipe from '../components/CardRecipe';
-import { cocktailDetailsByName } from '../services/theCocktailsAPI';
 import {
   getDoneRecipes,
   isInProgressRecipe,
@@ -17,25 +15,17 @@ import {
 
 export default function FoodsInProgress({ history, match: { params: { id } } }) {
   const [mealDetails, setMealDetails] = useState('');
-  const [idLinkYouTube, setIdLinkYoutube] = useState('');
   const [ingredients, setIngredients] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
-  const [recomendations, setRecomendations] = useState([]);
+  // const [recomendations, setRecomendations] = useState([]);
 
   useEffect(() => {
-    const requestGenericRecomendations = async () => {
-      const MAX_RECOMMENDATIONS = 6;
-      const recomendationsRequest = await cocktailDetailsByName();
-      setRecomendations(recomendationsRequest.slice(0, MAX_RECOMMENDATIONS));
-    };
-
     const requestMeal = async () => {
       const meal = await mealDetailsRequest(id);
       setMealDetails(meal);
       setIsLoaded(true);
 
       if (meal) {
-        setIdLinkYoutube(meal.strYoutube.split('https://www.youtube.com/watch?v=')[1]);
         const tirty = 30;
         const arr = [];
         for (let i = 1; i <= tirty; i += 1) {
@@ -49,22 +39,21 @@ export default function FoodsInProgress({ history, match: { params: { id } } }) 
       }
     };
     requestMeal();
-    requestGenericRecomendations();
   }, []);
 
   const verifyRecipeIsDone = () => (
     !getDoneRecipes().some((doneRecipe) => doneRecipe.id === id)
   );
 
-  const renderButton = () => (
+  const renderFinishButton = () => (
     verifyRecipeIsDone() && (
       <button
         type="button"
-        className="button-start-recipe"
-        data-testid="start-recipe-btn"
+        className="button-finish-recipe"
+        data-testid="finish-recipe-btn"
         onClick={ () => { history.push(`/foods/${id}/in-progress`); } }
       >
-        { isInProgressRecipe(id, 'meals') ? 'Continue Recipe' : 'Start Recipe' }
+        { isInProgressRecipe(id, 'meals') ? 'Continue Recipe' : 'Finish Recipe' }
       </button>
     )
   );
@@ -133,7 +122,7 @@ export default function FoodsInProgress({ history, match: { params: { id } } }) 
               ingredients.map((ingredient, index) => (
                 <li
                   key={ index }
-                  data-testid={ `${index}-ingredient-name-and-measure` }
+                  data-testid={ `${index}-ingredient-step` }
                 >
                   {ingredient}
                 </li>
@@ -147,35 +136,8 @@ export default function FoodsInProgress({ history, match: { params: { id } } }) 
             { mealDetails.strInstructions }
           </p>
         </section>
-        <section className="video-recipe">
-          <h4>Video</h4>
-          <iframe
-            data-testid="video"
-            width="300"
-            height="200"
-            src={ `https://www.youtube.com/embed/${idLinkYouTube}` }
-            title="YouTube video player"
-            frameBorder="0"
-            allow="accelerometer;
-              autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          />
-        </section>
-        <section className="recommended-recipe">
-          <h4>Recommended</h4>
-          <div className="carrousel">
-            { recomendations.map((recipe, index) => (
-              <CardRecipe
-                key={ index }
-                type="drink"
-                recipe={ recipe }
-                index={ index }
-              />
-            ))}
-          </div>
-        </section>
-        <section className="start-recipe-btn">
-          { renderButton() }
+        <section className="finish-recipe-btn">
+          { renderFinishButton() }
         </section>
       </article>
     )
