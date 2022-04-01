@@ -11,7 +11,11 @@ import {
   getDoneRecipes,
   isInProgressRecipe,
   isFavoriteRecipe,
-  saveFavoritesRecipes } from '../services/localStorage';
+  saveFavoritesRecipes,
+  saveInProgressRecipe,
+  inProgressIngredients,
+  setInProgressIngredients,
+  getInProgressRecipe } from '../services/localStorage';
 
 // REF CARROSSEL https://www.npmjs.com/package/react-responsive-carousel
 
@@ -44,6 +48,12 @@ export default function FoodsInProgress({ history, match: { params: { id } } }) 
           if (ingredient && ingredient.length > 0) {
             arr.push(`${ingredient} - ${measure}`);
           }
+        }
+        let boolCheckedList = arr.map(() => true);
+        if (isInProgressRecipe(id, 'meals')) {
+          boolCheckedList = (getInProgressRecipe(id + 'food'));
+        } else {
+          saveInProgressRecipe()
         }
         setIngredients(arr);
       }
@@ -131,12 +141,15 @@ export default function FoodsInProgress({ history, match: { params: { id } } }) 
           <ul>
             {
               ingredients.map((ingredient, index) => (
-                <li
-                  key={ index }
-                  data-testid={ `${index}-ingredient-name-and-measure` }
-                >
-                  {ingredient}
-                </li>
+                <label htmlFor={ ingredient + index } key={ index }>
+                  <input id={ ingredient + index } type="checkbox" />
+                  <li
+                    data-testid={ `${index}-ingredient-name-and-measure` }
+                  >
+                    {ingredient}
+                  </li>
+
+                </label>
               ))
             }
           </ul>
