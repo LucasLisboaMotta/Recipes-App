@@ -23,27 +23,20 @@ export const getDoneRecipes = () => {
   return [];
 };
 
-export const isInProgressRecipe = (id) => {
+export const isInProgressRecipe = (id, type) => {
   const recipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
-  console.log(recipes);
-  if (recipes) return recipes.some((Recipe) => Recipe.id === id);
+  if (recipes) return Object.keys(recipes[type]).some((idRecipe) => idRecipe === id);
   return false;
 };
 
-export const saveInProgressRecipe = (recipe) => {
+export const saveInProgressRecipe = (recipe, typeKey) => {
   const prevRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   if (!prevRecipes) {
-    return localStorage.setItem('inProgressRecipes', JSON.stringify([recipe]));
+    const NewRecipe = { [typeKey]: { [recipe.id]: [recipe] } };
+    return localStorage.setItem('inProgressRecipes', JSON.stringify(NewRecipe));
   }
-  const hasSave = prevRecipes
-    .some(({ id, type }) => recipe.id === id && recipe.type === type);
-  if (hasSave) {
-    const filteredFavoriteRecipes = prevRecipes
-      .filter(({ id, type }) => !(recipe.id === id && recipe.type === type));
-    return localStorage
-      .setItem('inProgressRecipes', JSON.stringify(filteredFavoriteRecipes));
-  }
-  localStorage.setItem('inProgressRecipes', JSON.stringify([...prevRecipes, recipe]));
+  prevRecipes[typeKey][recipe.id] = recipe;
+  localStorage.setItem('inProgressRecipes', JSON.stringify(prevRecipes));
 };
 
 export const getInProgressRecipe = (id) => {
