@@ -53,7 +53,7 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
             name: drink.name,
             image: drink.strDrinkThumb,
           };
-          saveInProgressRecipe(obj);
+          saveInProgressRecipe('drinks', obj);
           setInProgressIngredients(`${id}drink`, boolCheckedList);
         }
         setIngredients(arr);
@@ -141,7 +141,7 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
             type="button"
             data-testid="share-btn"
             onClick={ () => {
-              navigator.clipboard.writeText(window.location.href);
+              navigator.clipboard.writeText(`http://localhost:3000/drinks/${id}`);
               document.querySelector('.alert-link-copied').innerText = 'Link copied!';
             } }
           >

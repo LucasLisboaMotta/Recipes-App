@@ -24,6 +24,7 @@ export default function FoodsInProgress({ history, match: { params: { id } } }) 
   const [isLoaded, setIsLoaded] = useState(false);
   const [checkdArr, setCheckdArr] = useState([]);
   // const [recomendations, setRecomendations] = useState([]);
+  console.log('render');
 
   useEffect(() => {
     const requestMeal = async () => {
@@ -54,10 +55,9 @@ export default function FoodsInProgress({ history, match: { params: { id } } }) 
             name: meal.strMeal,
             image: meal.strMealThumb,
           };
-          saveInProgressRecipe(obj);
+          saveInProgressRecipe('meals', obj);
           setInProgressIngredients(`${id}food`, boolCheckedList);
         }
-        console.log('useEffect');
         setIngredients(arr);
         setCheckdArr(boolCheckedList);
       }
@@ -143,7 +143,7 @@ export default function FoodsInProgress({ history, match: { params: { id } } }) 
             type="button"
             data-testid="share-btn"
             onClick={ () => {
-              navigator.clipboard.writeText(window.location.href);
+              navigator.clipboard.writeText(`http://localhost:3000/foods/${id}`);
               document.querySelector('.alert-link-copied').innerText = 'Link copied!';
             } }
           >
@@ -163,28 +163,27 @@ export default function FoodsInProgress({ history, match: { params: { id } } }) 
         </section>
         <section className="ingredients-recipe">
           <h4>Ingredients</h4>
-          <ul>
-            {
-              ingredients.map((ingredient, index) => (
-                <label htmlFor={ ingredient + index } key={ index }>
-                  <li
-                    className={ checkdArr[index] ? 'ingredient-checked'
-                      : 'ingredient-unchecked' }
-                    data-testid={ `${index}-ingredient-step` }
-                  >
-                    <input
-                      id={ ingredient + index }
-                      type="checkbox"
-                      checked={ checkdArr[index] }
-                      onChange={ () => handleInput(index, !checkdArr[index]) }
-                    />
-                    {ingredient}
-                  </li>
+          {
+            ingredients.map((ingredient, index) => (
+              <label
+                htmlFor={ ingredient + index }
+                key={ index }
+                data-testid={ `${index}-ingredient-step` }
+                className={ checkdArr[index] ? 'ingredient-checked'
+                  : 'ingredient-unchecked' }
 
-                </label>
-              ))
-            }
-          </ul>
+              >
+                <input
+                  id={ ingredient + index }
+                  type="checkbox"
+                  checked={ checkdArr[index] }
+                  onChange={ () => handleInput(index, !checkdArr[index]) }
+                />
+                {ingredient}
+
+              </label>
+            ))
+          }
         </section>
         <section className="instructions-recipe">
           <h4>Instructions</h4>
