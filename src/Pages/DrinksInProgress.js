@@ -173,12 +173,11 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
                       : 'ingredient-unchecked' }
                     data-testid={ `${index}-ingredient-step` }
                   >
-                    {console.log(index)}
                     <input
                       id={ ingredient + index }
                       type="checkbox"
                       defaultChecked={ checkdArr[index] }
-                      onChange={ () => handleInput(index, !checkdArr[index]) }
+                      onClick={ () => handleInput(index, !checkdArr[index]) }
                     />
                     {ingredient}
                   </li>
