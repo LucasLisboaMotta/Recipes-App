@@ -41,19 +41,20 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
           }
         }
         let boolCheckedList = arr.map(() => false);
-        if (isInProgressRecipe(id, 'drink')) {
+        if (isInProgressRecipe(id, 'drinks')) {
           boolCheckedList = (inProgressIngredients(`${id}drink`));
         } else {
+          console.log(drink);
           const obj = {
-            id: drink.id,
+            id: drink.idDrink,
             type: 'drink',
-            nationality: drink.nationality,
-            category: drink.categorystrCategory,
-            alcoholicOrNot: drink.alcoholicOrNot,
-            name: drink.name,
+            nationality: '',
+            category: drink.strCategory,
+            alcoholicOrNot: drink.strAlcoholic,
+            name: drink.strDrink,
             image: drink.strDrinkThumb,
           };
-          saveInProgressRecipe('drinks', obj);
+          saveInProgressRecipe('cocktails', obj);
           setInProgressIngredients(`${id}drink`, boolCheckedList);
         }
         setIngredients(arr);
