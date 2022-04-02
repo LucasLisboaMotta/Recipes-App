@@ -143,7 +143,7 @@ export default function FoodsInProgress({ history, match: { params: { id } } }) 
             type="button"
             data-testid="share-btn"
             onClick={ () => {
-              navigator.clipboard.writeText(window.location.href);
+              navigator.clipboard.writeText(`http://localhost:3000/foods/${id}`);
               document.querySelector('.alert-link-copied').innerText = 'Link copied!';
             } }
           >

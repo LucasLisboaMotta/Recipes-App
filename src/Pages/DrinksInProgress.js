@@ -106,7 +106,7 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
   const handleInput = (index, bool) => {
     const newArry = [...checkdArr];
     newArry[index] = bool;
-    setInProgressIngredients(`${id}food`, newArry);
+    setInProgressIngredients(`${id}drink`, newArry);
     setCheckdArr(newArry);
   };
 
