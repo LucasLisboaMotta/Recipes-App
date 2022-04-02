@@ -43,6 +43,7 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
         let boolCheckedList = arr.map(() => false);
         if (isInProgressRecipe(id, 'drinks')) {
           boolCheckedList = (inProgressIngredients(`${id}drink`));
+          console.log(boolCheckedList);
         } else {
           console.log(drink);
           const obj = {
@@ -172,10 +173,11 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
                       : 'ingredient-unchecked' }
                     data-testid={ `${index}-ingredient-step` }
                   >
+                    {console.log(index)}
                     <input
                       id={ ingredient + index }
                       type="checkbox"
-                      checked={ checkdArr[index] }
+                      defaultChecked={ checkdArr[index] }
                       onChange={ () => handleInput(index, !checkdArr[index]) }
                     />
                     {ingredient}

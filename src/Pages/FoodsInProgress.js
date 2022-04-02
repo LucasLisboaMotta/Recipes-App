@@ -54,11 +54,7 @@ export default function FoodsInProgress({ history, match: { params: { id } } }) 
             name: meal.strMeal,
             image: meal.strMealThumb,
           };
-<<<<<<< HEAD
-          saveInProgressRecipe(obj);
-=======
           saveInProgressRecipe('food', obj);
->>>>>>> c9ad694f1d9a2a030678a79c8502a8109377eceb
           setInProgressIngredients(`${id}food`, boolCheckedList);
         }
         console.log('useEffect');
@@ -167,7 +163,7 @@ export default function FoodsInProgress({ history, match: { params: { id } } }) 
         </section>
         <section className="ingredients-recipe">
           <h4>Ingredients</h4>
-          <ul>
+          <ul className="ingredient-ul">
             {
               ingredients.map((ingredient, index) => (
                 <label htmlFor={ ingredient + index } key={ index }>
@@ -176,11 +172,12 @@ export default function FoodsInProgress({ history, match: { params: { id } } }) 
                       : 'ingredient-unchecked' }
                     data-testid={ `${index}-ingredient-step` }
                   >
+                    {console.log(checkdArr[index])}
                     <input
                       id={ ingredient + index }
+                      defaultChecked={ checkdArr[index] }
                       type="checkbox"
-                      checked={ checkdArr[index] }
-                      onChange={ () => handleInput(index, !checkdArr[index]) }
+                      onClick={ () => handleInput(index, !checkdArr[index]) }
                     />
                     {ingredient}
                   </li>
