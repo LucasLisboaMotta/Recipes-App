@@ -45,6 +45,7 @@ function CardDoneRecipe({ recipe, index }) {
         />
       </button>
       <p className="alert-link-copied" />
+      {console.log(tags, 'logtags')}
       {tags.map((tag, indexTag) => (
         <p
           data-testid={ `${index}-${tag}-horizontal-tag` }

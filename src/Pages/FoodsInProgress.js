@@ -70,6 +70,8 @@ export default function FoodsInProgress({ history, match: { params: { id } } }) 
   );
 
   const onClickButton = () => {
+    const tags = mealDetails.strTags ? mealDetails.strTags.split(',') : [];
+    const now = new Date();
     const obj = {
       id: mealDetails.idMeal,
       type: 'food',
@@ -78,6 +80,8 @@ export default function FoodsInProgress({ history, match: { params: { id } } }) 
       alcoholicOrNot: '',
       name: mealDetails.strMeal,
       image: mealDetails.strMealThumb,
+      tags,
+      doneDate: `${now.getDate()}/${now.getMonth()}/${now.getFullYear()}`,
     };
     saveDoneRecipes(obj);
     history.push('/done-recipes');

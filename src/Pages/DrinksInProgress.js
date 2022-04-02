@@ -70,6 +70,8 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
   );
 
   const onClickButton = () => {
+    const tags = drinkDetails.strTags ? drinkDetails.strTags.split(',') : [];
+    const now = new Date();
     const obj = {
       id: drinkDetails.idDrink,
       type: 'drink',
@@ -78,6 +80,8 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
       alcoholicOrNot: drinkDetails.strAlcoholic,
       name: drinkDetails.strDrink,
       image: drinkDetails.strDrinkThumb,
+      tags,
+      doneDate: `${now.getDate()}/${now.getMonth()}/${now.getFullYear()}`,
     };
     saveDoneRecipes(obj);
     history.push('/done-recipes');
