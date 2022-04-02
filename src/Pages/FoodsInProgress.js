@@ -55,7 +55,7 @@ export default function FoodsInProgress({ history, match: { params: { id } } }) 
             name: meal.strMeal,
             image: meal.strMealThumb,
           };
-          saveInProgressRecipe('meals', obj);
+          saveInProgressRecipe('food', obj);
           setInProgressIngredients(`${id}food`, boolCheckedList);
         }
         setIngredients(arr);

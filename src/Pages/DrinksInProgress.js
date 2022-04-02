@@ -41,7 +41,7 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
           }
         }
         let boolCheckedList = arr.map(() => false);
-        if (isInProgressRecipe(id, 'drink')) {
+        if (isInProgressRecipe(id, 'drinks')) {
           boolCheckedList = (inProgressIngredients(`${id}drink`));
         } else {
           const obj = {
