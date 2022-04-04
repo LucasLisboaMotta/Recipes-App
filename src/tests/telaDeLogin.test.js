@@ -55,7 +55,7 @@ describe('login', () => {
     expect(buttonLoginSubmit.disabled).toBe(false);
   });
   it('Apos clicar no botão submit, redirecionar para a pagina foods', async () => {
-    const { history } = renderWithRouter(<App />);
+    renderWithRouter(<App />);
     const emailInput = screen.getByTestId(EMAIL_INPUT);
     const passwordInput = screen.getByTestId(PASSWORD_INPUT);
     const buttonLoginSubmit = screen.getByTestId(SUBMIT_INPUT);
@@ -64,8 +64,5 @@ describe('login', () => {
     userEvent.click(buttonLoginSubmit);
     const title = await screen.findByRole('heading', { name: 'Foods' });
     expect(title).toBeInTheDocument();
-    const { location } = history;
-    console.log(location.pathname);
-    // expect(pathname).tobe('/foods');
   });
 });
