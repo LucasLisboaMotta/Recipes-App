@@ -45,7 +45,7 @@ export default function DrinksDetail({ history, match: { params: { id } } }) {
           boolCheckedList = (inProgressIngredients(`${id}drink`));
           // console.log(boolCheckedList);
         } else {
-          console.log(drink);
+          // console.log(drink);
           const obj = {
             id: drink.idDrink,
             type: 'drink',

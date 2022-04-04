@@ -77,6 +77,14 @@ export const isFavoriteRecipe = (idRecipe, typeRecipe) => {
   return recipes.some(({ id, type }) => idRecipe === id && type === typeRecipe);
 };
 
+export const getFavoriteRecipes = () => {
+  const recipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  if (recipes) {
+    return recipes;
+  }
+  return [];
+};
+
 export const getEmailUser = () => JSON.parse(localStorage.getItem('user'));
 
 export const clearStorage = () => localStorage.clear();
