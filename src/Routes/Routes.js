@@ -23,36 +23,46 @@ function Routes() {
     <BrowserRouter>
       <Switch>
         <Route exact path="/" component={ Login } />
-
+        {/* lucas */}
         <Route exact path="/foods" component={ Foods } />
+        {/* // matheus */}
         <Route exact path="/foods/:id" component={ FoodsDetail } />
+        {/* // alvaro */}
         <Route exact path="/foods/:id/in-progress" component={ FoodsInProgress } />
-
+        {/* //asafe */}
         <Route exact path="/drinks" component={ Drinks } />
+        {/* //lucas */}
         <Route exact path="/drinks/:id" component={ DrinksDetail } />
+        {/* //matheus */}
         <Route exact path="/drinks/:id/in-progress" component={ DrinksInProgress } />
-
+        {/* //alvaro */}
         <Route exact path="/explore" component={ Explore } />
+        {/* // asafe */}
         <Route exact path="/explore/foods" component={ ExploreFoods } />
+        {/* // lucas */}
         <Route exact path="/explore/drinks" component={ ExploreDrinks } />
+        {/* // matheus */}
         <Route path="/explore/foods/ingredients" component={ ExploreFoodsIngredients } />
+        {/* // alvaro */}
         <Route
           path="/explore/drinks/ingredients"
           component={ ExploreDrinksIngredients }
         />
+        {/* //asafe */}
         <Route
           exact
           path="/explore/foods/nationalities"
           component={ ExploreFoodsNationalities }
         />
-
+        {/* // lucas */}
         <Route exact path="/profile" component={ Profile } />
-
+        {/* //matheus */}
         <Route exact path="/done-recipes" component={ DoneRecipes } />
-
+        {/* //alvaro */}
         <Route exact path="/favorite-recipes" component={ FavoriteRecipes } />
-
+        {/* // asafe */}
         <Route exact path="*" component={ NotFound } />
+        {/* // lucas */}
       </Switch>
     </BrowserRouter>
   );
