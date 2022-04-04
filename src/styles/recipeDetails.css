@@ -1,3 +1,8 @@
+.button-start-recipe {
+  bottom: 0;
+  position: fixed;
+}
+
 .carrousel {
   display: flex;
   flex-flow: row nowrap;
@@ -9,7 +14,15 @@
   width: 190px;
 }
 
-.button-start-recipe {
-  bottom: 0;
-  position: fixed;
+.ingredient-ul {
+  display: flex;
+  flex-wrap: column;
+}
+
+.ingredient-checked {
+  text-decoration: line-through;
+}
+
+.ingredient-unchecked {
+  text-decoration: none solid black;
 }
