@@ -31,7 +31,7 @@ describe('login', () => {
       const emailInput = screen.getByTestId(EMAIL_INPUT);
       const passwordInput = screen.getByTestId(PASSWORD_INPUT);
       const buttonLoginSubmit = screen.getByTestId(SUBMIT_INPUT);
-      incorrectEmail.forEach((s, index) => {
+      incorrectEmail.forEach((_, index) => {
         fireEvent.change(emailInput, { target: { value: incorrectEmail[index] } });
         fireEvent.change(passwordInput, { target: { value: incorrectPassword[index] } });
         expect(buttonLoginSubmit.disabled).toBe(true);
